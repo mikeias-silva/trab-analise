@@ -6,7 +6,7 @@ Trabalho de análise empírica do comportamento assintótico de algoritmos de or
 ==============================================
 Este repositório apresenta as instruções para a relização do trabalho e também um exemplo com o algoritmo Bubblesort
 
-1\. Inscruções
+1\. Instruções
 --------------
 Fazer um estudo de tempo de execução empírico dos seguintes algoritmos de ordenação:
 * Insertion Sort
@@ -18,7 +18,7 @@ Fazer um estudo de tempo de execução empírico dos seguintes algoritmos de ord
 
 Observando as seguintes questões:
 * Devem ser utilizados os algoritmos estudados em sala de aula como fonte de referência para a codificação.
-* Para  cada  classificador,  devem  ser  considerados  três  tipos  de  entrada  de arranjo:  já  ordenado,  ordem  aleatória  e  ordem  inversa,  e  dois  tamanhos  de vetor diferentes.
+* Para  cada  classificador,  devem  ser  considerados  três  tipos  de  entrada  de arranjo:  já  ordenado,  ordem  aleatória  e  ordem  inversa,  e  no mínimo 10 tamanhos de entradas distintas.
 * O trabalho poderá ser realizado individualmente ou em dupla de alunos.
 
 O  resultado  do  estudo  empírico  realizado  deverá  ser  registrado  em  trabalho  escrito, observando as seguintes questões:
