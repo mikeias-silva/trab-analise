@@ -1,0 +1,3 @@
+*.o
+.resultados/*
+!.resultados/readme.md
