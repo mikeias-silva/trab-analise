@@ -4,7 +4,7 @@
 #include <sys/timeb.h>
 
 FILE *gnuplot;
-int *a, *ptr;
+int *a, *ptr, tamanho;
   
 
 void swap(int* a, int* b) 
@@ -125,12 +125,63 @@ int heapSort(int i[], int tam){
     }
 }
 
+void radixsort(int vetor[], int tamanho) {
+    int i;
+    int *b;
+    int maior = vetor[0];
+    int exp = 1;
 
+    b = (int *)calloc(tamanho, sizeof(int));
+
+    for (i = 0; i < tamanho; i++) {
+        if (vetor[i] > maior)
+    	    maior = vetor[i];
+    }
+
+    while (maior/exp > 0) {
+        int bucket[10] = { 0 };
+    	for (i = 0; i < tamanho; i++)
+    	    bucket[(vetor[i] / exp) % 10]++;
+    	for (i = 1; i < 10; i++)
+    	    bucket[i] += bucket[i - 1];
+    	for (i = tamanho - 1; i >= 0; i--)
+    	    b[--bucket[(vetor[i] / exp) % 10]] = vetor[i];
+    	for (i = 0; i < tamanho; i++)
+    	    vetor[i] = b[i];
+    	exp *= 10;
+    }
+
+    free(b);
+}
+
+void Bucket_Sort(int array[], int n) {
+   /*
+   for(int i = 0; i < array[n]; i++)
+   {
+       printf("\n%d", i);
+  
+    printf("teste");
+   }*/
+    printf("teste");
+	int i, j;
+	int count[n];
+	for (i=0; i < n; i++) {
+		count[i] = 0;
+	}
+	for (i=0; i < n; i++) {
+		(count[a[i]])++;
+	}
+	for (i=0,j=0; i < n; i++) {
+		for (; count[i]>0;(count[i])--) {
+			a[j++] = i;
+		}
+	}
+}
 
 void leia( char *nome )
 {
   struct timeb tempoInicial, tempoFinal;
-  int i, tamanho;
+  int i;
   FILE   *arquivo;
   arquivo = fopen(nome, "r");
   fscanf(arquivo, "%d", &tamanho);
@@ -166,8 +217,22 @@ void leia( char *nome )
   *//*-----------*/
   
   /*-----------*/
-  ftime( &tempoInicial );
+  /*ftime( &tempoInicial );
   heapSort(a, tamanho - 1);
+  ftime( &tempoFinal );
+  /*-----------*/
+  
+  /*-----------*/
+ /* ftime( &tempoInicial );
+  radixsort(a, tamanho - 1);
+  ftime( &tempoFinal );
+  /*-----------*/
+  
+  /*-----------*/
+      printf("teste");
+
+  ftime( &tempoInicial );
+  Bucket_Sort(a, tamanho-1);
   ftime( &tempoFinal );
   /*-----------*/
   
@@ -177,10 +242,13 @@ void leia( char *nome )
   printf(" %d \n", tempo );
   fclose(arquivo);
 }
+
 int main()
 {
 
-  system("clear");
+
+  //system("clear");
+    //printf("teste");
 
   gnuplot = fopen(".resultados/bubb-rnd.dat", "w");
   printf("RANDOMICOS\nTamanho \t Tempo\n");
