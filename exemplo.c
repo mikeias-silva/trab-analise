@@ -154,28 +154,32 @@ void radixsort(int vetor[], int tamanho) {
     free(b);
 }
 
-void Bucket_Sort(int array[], int n) {
-   /*
-   for(int i = 0; i < array[n]; i++)
-   {
-       printf("\n%d", i);
-  
-    printf("teste");
-   }*/
-    printf("teste");
-	int i, j;
-	int count[n];
-	for (i=0; i < n; i++) {
-		count[i] = 0;
-	}
-	for (i=0; i < n; i++) {
-		(count[a[i]])++;
-	}
-	for (i=0,j=0; i < n; i++) {
-		for (; count[i]>0;(count[i])--) {
-			a[j++] = i;
-		}
-	}
+void Bucket_Sort()
+{
+    int i, j;
+    int *count = NULL;
+    //int tamanho = 10;
+
+    // find largest
+    int mymax = a[0]+1;
+    for (i=1; i<tamanho; ++i)
+    {
+        if (mymax < (a[i]+1))
+            mymax = a[i]+1;
+    }
+
+    // allocate and zero-fill a proper-sized array
+    count = calloc(mymax, sizeof(*count));
+
+    for(i=0; i < tamanho; i++)
+        (count[a[i]])++;
+
+    for(i=0,j=0; i < mymax; i++)
+    {
+        for(; count[i]>0;(count[i])--)
+            a[j++] = i;
+    }
+    free(count);
 }
 
 void leia( char *nome )
@@ -229,10 +233,10 @@ void leia( char *nome )
   /*-----------*/
   
   /*-----------*/
-      printf("teste");
+      //printf("teste");
 
   ftime( &tempoInicial );
-  Bucket_Sort(a, tamanho-1);
+  Bucket_Sort();
   ftime( &tempoFinal );
   /*-----------*/
   
