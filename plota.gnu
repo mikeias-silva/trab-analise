@@ -18,7 +18,7 @@ set ylabel "Tempo"
 #
 #Seta posicao em coordenadas dos dados, onde vao aparecer os titulos
 #Ist voce DEVE adaptar aos seus dados
-set key at 40000, 40000
+set key at 25000, 6000
 #
 #Seta grade
 set grid

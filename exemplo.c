@@ -4,7 +4,8 @@
 #include <sys/timeb.h>
 
 FILE *gnuplot;
-
+int *a, *ptr;
+  
 
 void swap(int* a, int* b) 
 { 
@@ -20,9 +21,114 @@ void bubble(int a[], int N)
       if (a[j-1] > a[j]) swap(&a[j-1], &a[j]); 
 }
 
+
+void insertionSort(int a[], int n){
+   // int n;
+    int atual;
+    for(int i = 0; i<n; i++){
+        atual = a[i];
+        int j = i-1;
+        while(j>=0 && a[j] >= atual){
+            a[j+1] = a[j];
+            j--;
+        }
+        a[j+1] = atual;
+    }
+}
+
+
+void selectionSort(int vetor[], int n){
+  int menor, aux;
+  int i, j;
+
+  for(i = 0; i<n; i++){
+          menor =i;
+    for(j=i+1; j<n; j++){
+        if(vetor[menor] > vetor[j])
+            menor = j;
+    }
+        if(i != menor){
+            aux=vetor[i];
+            vetor[i]=vetor[menor];
+            vetor[menor]=aux;
+        }
+    }
+}
+
+
+int particionar(int esquerda, int direita, int *vetor){
+    int i, aux;
+    int cont = esquerda;
+    for(i = esquerda+1; i <= direita; i++){
+        if(vetor[i] < vetor[esquerda]){
+            cont++;
+            aux=vetor[i];
+            vetor[i]=vetor[cont];
+            vetor[cont]=aux;
+        }
+    }
+    aux=vetor[esquerda];
+    vetor[esquerda]=vetor[cont];
+    vetor[cont]=aux;
+    return cont;
+}
+
+int quicksort(int esquerda, int direita, int *vetor){
+    int temp;
+
+    if(esquerda < direita){
+        temp = particionar(esquerda, direita, vetor);
+        quicksort(esquerda, temp-1, vetor);
+        quicksort(temp+1, direita, vetor);
+    }
+
+}
+
+void troca(int j, int aposJ){
+    int aux = a[j];
+    a[j] = a[aposJ];
+    a[aposJ] = aux;
+}
+
+int maxheapify(int pos, int tamanhoDoVetor){
+   // int vetor[a];
+    int maxh = 2 * pos + 1;
+    int direita = maxh + 1;
+    if(maxh < tamanhoDoVetor){
+        if(direita< tamanhoDoVetor && a[maxh] < a[direita]){
+            maxh = direita;
+        }
+        if(a[maxh] > a[pos]){
+            troca(maxh, pos);
+            maxheapify(maxh, tamanhoDoVetor);
+        }
+    }
+}
+
+int criaheap(int n){
+    int i;
+    int j = n;
+    for(i = n / 2 - 1; i >= 0; i--){
+
+        maxheapify(i, j);
+    }
+}
+
+
+int heapSort(int i[], int tam){
+    criaheap(tam);
+    int j = tam;
+//VERIFICAR A REGRA TAM - 1
+    for(int i = tam; i > 0; i--){
+        troca(i, 0);
+        maxheapify(0, --j);
+    }
+}
+
+
+
 void leia( char *nome )
 {
-  int *a, *ptr;
   struct timeb tempoInicial, tempoFinal;
   int i, tamanho;
   FILE   *arquivo;
@@ -35,11 +141,36 @@ void leia( char *nome )
     {
       fscanf(arquivo, "%d", &a[i-1]);
     }
+
   /*-------------------*/
-  ftime( &tempoInicial );
+  /*ftime( &tempoInicial );
   bubble( a, tamanho - 1);
   ftime( &tempoFinal );
-  /*-------------------*/
+  *//*-------------------*/
+
+  /*------------*/
+  /*ftime( &tempoInicial );
+  insertionSort( a, tamanho - 1);
+  ftime( &tempoFinal );
+  *//*-----------*/
+
+  /*ftime( &tempoInicial );
+  selectionSort( a, tamanho - 1);
+  ftime( &tempoFinal );*/
+  /*-----------*/
+
+  /*-----------*/
+  /*ftime( &tempoInicial );
+  quicksort(0, tamanho - 1, a);
+  ftime( &tempoFinal );
+  *//*-----------*/
+  
+  /*-----------*/
+  ftime( &tempoInicial );
+  heapSort(a, tamanho - 1);
+  ftime( &tempoFinal );
+  /*-----------*/
+  
   free(a);
   int tempo = (int) (1000.0 *(tempoFinal.time - tempoInicial.time)+(tempoFinal.millitm - tempoInicial.millitm));
   fprintf( gnuplot," %d \n", tempo );
