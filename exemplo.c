@@ -3,6 +3,8 @@
 #include <time.h>
 #include <sys/timeb.h>
 
+//#define tamanho
+
 FILE *gnuplot;
 int *a, *ptr, tamanho;
   
@@ -125,7 +127,7 @@ int heapSort(int i[], int tam){
     }
 }
 
-void radixsort(int vetor[], int tamanho) {
+void radixSort(int vetor[], int tamanho) {
     int i;
     int *b;
     int maior = vetor[0];
@@ -162,7 +164,7 @@ void Bucket_Sort()
 
     // find largest
     int mymax = a[0]+1;
-    for (i=1; i<tamanho; ++i)
+    for (i = 0; i < tamanho-1; i++)
     {
         if (mymax < (a[i]+1))
             mymax = a[i]+1;
@@ -205,20 +207,20 @@ void leia( char *nome )
 
   /*------------*/
   /*ftime( &tempoInicial );
-  insertionSort( a, tamanho - 1);
+  insertionSort( a, tamanho);
   ftime( &tempoFinal );
-  *//*-----------*/
+  /*-----------*/
 
   /*ftime( &tempoInicial );
-  selectionSort( a, tamanho - 1);
-  ftime( &tempoFinal );*/
+  selectionSort( a, tamanho);
+  ftime( &tempoFinal );
   /*-----------*/
 
   /*-----------*/
   /*ftime( &tempoInicial );
   quicksort(0, tamanho - 1, a);
   ftime( &tempoFinal );
-  *//*-----------*/
+  /*-----------*/
   
   /*-----------*/
   /*ftime( &tempoInicial );
@@ -227,8 +229,8 @@ void leia( char *nome )
   /*-----------*/
   
   /*-----------*/
- /* ftime( &tempoInicial );
-  radixsort(a, tamanho - 1);
+  /*ftime( &tempoInicial );
+  radixSort(a, tamanho - 1);
   ftime( &tempoFinal );
   /*-----------*/
   

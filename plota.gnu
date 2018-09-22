@@ -6,7 +6,7 @@
 # Este programa GnuPlot seta uma janela grafica e le varios
 # arquivos de dados.
 # ----------------------------------------------------------
-set title "Plot de Complexidade de Tempo para Bubblesort"
+set title "Plot de Complexidade de Tempo"
 #
 #Seta tamanho da janela automaticamente de acordo com os dados
 set autoscale
