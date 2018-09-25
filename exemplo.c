@@ -6,9 +6,8 @@
 //#define tamanho
 
 FILE *gnuplot;
-int *a, *ptr, tamanho;
   
-
+/*
 void swap(int* a, int* b) 
 { 
     int t = *a; 
@@ -156,9 +155,10 @@ void radixSort(int vetor[], int tamanho) {
     free(b);
 }
 
-void Bucket_Sort()
+void Bucket_Sort(int a[], int tamanho)
 {
-    int i, j;
+    int i;
+    int j;
     int *count = NULL;
     //int tamanho = 10;
 
@@ -183,9 +183,98 @@ void Bucket_Sort()
     }
     free(count);
 }
+/*
+void Bucket_Sort()
+{
+    // 1) Create n empty buckets
+    vector<float> b[n];
+    
+    // 2) Put array elements in different buckets
+    for (int i=0; i<tamanho; i++)
+    {
+       int bi = tamanho*a[i]; // Index in bucket
+       b[bi].push_back(a[i]);
+    }
+ 
+    // 3) Sort individual buckets
+    for (int i=0; i<tamanho; i++)
+       sort(b[i].begin(), b[i].end());
+ 
+    // 4) Concatenate all buckets into arr[]
+    int index = 0;
+    for (int i = 0; i < tamanho; i++)
+        for (int j = 0; j < b[i].size(); j++)
+          a[index++] = b[i][j];
+}*/
+
+struct bucket 
+{
+    int count;
+    int* values;
+};
+
+int compareIntegers(const void* first, const void* second)
+{
+    int a = *((int*)first), b =  *((int*)second);
+    if (a == b)
+    {
+        return 0;
+    }
+    else if (a < b)
+    {
+        return -1;
+    }
+    else
+    {
+        return 1;
+    }
+}
+
+void Bucket_Sort(int array[],int n)
+{
+    struct bucket buckets[3];
+    int i, j, k;
+    for (i = 0; i < 3; i++)
+    {
+        buckets[i].count = 0;
+        buckets[i].values = (int*)malloc(sizeof(int) * n);
+    }
+    // Divide the unsorted elements among 3 buckets
+    // < 0    : first
+    // 0 - 10 : second
+    // > 10   : third
+    for (i = 0; i < n; i++)
+    {
+        if (array[i] < 0)
+        {
+            buckets[0].values[buckets[0].count++] = array[i];
+        }
+        else if (array[i] > 10)
+        {
+            buckets[2].values[buckets[2].count++] = array[i];
+        }
+        else
+        {
+            buckets[1].values[buckets[1].count++] = array[i];
+        }
+    }
+    for (k = 0, i = 0; i < 3; i++)
+    {
+        // Use Quicksort to sort each bucket individually
+        qsort(buckets[i].values, buckets[i].count, sizeof(int), &compareIntegers);
+        for (j = 0; j < buckets[i].count; j++)
+        {
+            array[k + j] = buckets[i].values[j];
+        }
+        k += buckets[i].count;
+        free(buckets[i].values);
+    }
+}
 
 void leia( char *nome )
 {
+    int *a, *ptr, tamanho;
+
   struct timeb tempoInicial, tempoFinal;
   int i;
   FILE   *arquivo;
@@ -238,7 +327,7 @@ void leia( char *nome )
       //printf("teste");
 
   ftime( &tempoInicial );
-  Bucket_Sort();
+  Bucket_Sort(a, tamanho);
   ftime( &tempoFinal );
   /*-----------*/
   
